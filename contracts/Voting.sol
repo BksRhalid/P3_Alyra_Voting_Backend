@@ -108,6 +108,10 @@ contract Voting is Ownable {
             "Vous ne pouvez pas ne rien proposer"
         ); // facultatif
         // voir que desc est different des autres
+        require(
+            proposalsArray.length < 12,
+            "La session a atteint son nombre maximum de 12 propositions"
+        );
 
         Proposal memory proposal;
         proposal.description = _desc;
@@ -206,7 +210,7 @@ contract Voting is Ownable {
             "Current status is not voting session ended"
         );
         uint256 _winningProposalId;
-        for (uint256 p = 0; p < 3000; p++) {
+        for (uint256 p = 0; p < proposalsArray.length; p++) {
             if (
                 proposalsArray[p].voteCount >
                 proposalsArray[_winningProposalId].voteCount
